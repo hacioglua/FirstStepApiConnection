@@ -33,4 +33,8 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    @GetMapping("/test/{number}")
+    public ResponseEntity<Integer> murat(@PathVariable("number") int number) {
+        return ResponseEntity.ok(number);
+    }
 }
