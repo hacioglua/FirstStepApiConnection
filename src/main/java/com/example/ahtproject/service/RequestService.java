@@ -28,6 +28,7 @@ public class RequestService {
 
     private ResourceType getResourceTypeById(int resourceId) {
         ResourceType[] resourceTypes = ResourceType.values();
+
         if (resourceId >= 1 && resourceId <= resourceTypes.length) {
             return resourceTypes[resourceId - 1];
         } else {

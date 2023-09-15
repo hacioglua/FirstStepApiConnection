@@ -1,5 +1,6 @@
 package com.example.ahtproject.controller;
 
+import com.example.ahtproject.dto.SportDTO;
 import com.example.ahtproject.enums.ResourceType;
 import com.example.ahtproject.exception.CustomException;
 import com.example.ahtproject.service.RequestService;
@@ -24,9 +25,9 @@ public class ApiController {
         return ResponseEntity.ok(requestService.processGetRequest(resourceId));
     }
 
-    @PostMapping("/post/{resourceId}")
-    public ResponseEntity<String> processPostRequest(@PathVariable("resourceId") int resourceId) {
-        return ResponseEntity.ok(requestService.processPostRequest(resourceId));
+    @PostMapping("/post")
+    public ResponseEntity<String> processPostRequest(@RequestBody SportDTO sportDTO) {
+        return ResponseEntity.ok(requestService.processPostRequest(sportDTO.getId()));
     }
     @GetMapping("/test/{number}")
     public ResponseEntity<Integer> murat(@PathVariable("number") int number) {
