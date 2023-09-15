@@ -1,4 +1,5 @@
 package com.example.ahtproject.service;
+
 import com.example.ahtproject.enums.ResourceType;
 import com.example.ahtproject.exception.CustomException;
 import org.springframework.stereotype.Service;
@@ -6,37 +7,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class RequestService {
 
-    public String processGetRequest(ResourceType resource) {
-        switch (resource) {
-            case NBA:
-                return "GET process completed: NBA source";
-            case EUROLEAGUE:
-                return "GET process completed: EUROLEAGUE source";
-            case NCAA:
-                return "GET process completed: NCAA source";
-            case WNBA:
-                return "GET process completed: WNBA source";
-            case FIBA:
-                return "GET process completed: FIBA source";
-            default:
-                throw new CustomException("Invalid request service.");
-        }
+    public String processGetRequest(int resourceId) {
+        ResourceType resource = getResourceTypeById(resourceId);
+        return "GET process completed: " + resource.name() + " source";
     }
 
-    public String processPostRequest(ResourceType resource) {
-        switch (resource) {
-            case NBA:
-                return "POST process completed: NBA source";
-            case EUROLEAGUE:
-                return "POST process completed: EUROLEAGUE source";
-            case NCAA:
-                return "POST process completed: NCAA source";
-            case WNBA:
-                return "POST process completed: WNBA source";
-            case FIBA:
-                return "POST process completed: FIBA source";
-            default:
-                throw new CustomException("Invalid request service.");
+    public String processPostRequest(int resourceId) {
+        ResourceType resource = getResourceTypeById(resourceId);
+        return "POST process completed: " + resource.name() + " source";
+    }
+
+    public String[] getAllResources() {
+        ResourceType[] resourceTypes = ResourceType.values();
+        String[] resources = new String[resourceTypes.length];
+        for (int i = 0; i < resourceTypes.length; i++) {
+            resources[i] = resourceTypes[i].name();
+        }
+        return resources;
+    }
+
+    private ResourceType getResourceTypeById(int resourceId) {
+        ResourceType[] resourceTypes = ResourceType.values();
+        if (resourceId >= 1 && resourceId <= resourceTypes.length) {
+            return resourceTypes[resourceId - 1];
+        } else {
+            throw new CustomException("Invalid resource ID.");
         }
     }
 }
